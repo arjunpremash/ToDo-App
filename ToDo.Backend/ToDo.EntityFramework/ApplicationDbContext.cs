@@ -7,6 +7,7 @@ namespace ToDo.EntityFramework
     {
         public DbSet<Project> Projects { get; set; }
         public DbSet<Todo> Todos { get; set; }
+        public DbSet<User> Users { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
