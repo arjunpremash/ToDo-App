@@ -6,6 +6,7 @@ import { CardModule } from 'primeng/card';
 import { provideHttpClient } from '@angular/common/http';
 import { CommonModule, NgClass } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MessagesModule } from 'primeng/messages';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CardModule,
     CommonModule,
     ReactiveFormsModule,
+    MessagesModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
