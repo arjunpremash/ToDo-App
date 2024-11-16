@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ToDo.DataAccess;
 using ToDo.DataAccess.Contracts;
 using ToDo.EntityFramework;
+using ToDo.EntityFramework.Entity;
 using ToDo.Service.Contracts;
 using ToDo.Services;
 
@@ -19,7 +21,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 // Add services to the container.
 builder.Services.AddScoped<IProjectService, ProjectService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+
 builder.Services.AddScoped<IProjectDataAccess, ProjectDataAccess>();
+builder.Services.AddScoped<IUserDataAccess, UserDataAccess>();
 
 builder.Services.AddCors(options =>
 {
