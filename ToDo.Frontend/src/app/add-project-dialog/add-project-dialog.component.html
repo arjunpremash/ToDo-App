@@ -1,0 +1,11 @@
+<form [formGroup]="addProjectForm" (ngSubmit)="addProject()">
+    <div class="p-field">
+        <label for="title">Project Title</label>
+        <input id="title" type="text" pInputText formControlName="title" />
+    </div>
+
+    <div class="p-dialog-footer">
+        <button pButton type="button" label="Cancel" class="p-button-text" (click)="onCancel()"></button>
+        <button pButton type="submit" label="Add Project" [disabled]="addProjectForm.invalid"></button>
+    </div>
+</form>

@@ -1,0 +1,26 @@
+<div class="top-bar">
+    <p-button id = "add-project-button" label = "Add Project" icon = "pi pi-plus" (onClick)="openAddProjectDialog()"></p-button>
+</div>
+<div class="project-list">
+    <div *ngFor="let project of projects" >
+        <p-card class="project-card">
+            <ng-template pTemplate="header">
+                <div class="project-title">{{ project.title }}</div>
+            </ng-template>
+
+            <div>
+                <p><strong>Created Date:</strong> {{ project.createdDate | date: 'dd/MM/yyyy' }}</p>
+                <!--<p><strong>Todos:</strong> {{ project.todos.length }}</p>
+                <!--<p><strong>Completed:</strong> {{ project.todos.filter(todo => todo.isCompleted).length }} / {{
+                    project.todos.length }}</p>-->
+            </div>
+
+            <button
+                pButton
+                class="delete-button"
+                icon="pi pi-trash"
+                (click)="deleteProject(project.projectId)"
+            ></button>
+        </p-card>
+    </div>
+</div>
