@@ -44,7 +44,11 @@ namespace ToDo.DataAccess
                 return null;
             }
             var result = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, userModel.Password);
-            return result == PasswordVerificationResult.Success ? userModel : null;
+            return result == PasswordVerificationResult.Success ? new UserModel()
+            {
+                UserId = user.UserId,
+                Username = user.Username,
+            } : null;
         }
 
         public Task DeleteUserAsync(UserModel user) { return Task.CompletedTask; }
