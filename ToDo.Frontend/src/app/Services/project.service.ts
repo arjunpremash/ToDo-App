@@ -11,12 +11,12 @@ export class ProjectService {
 
   constructor(private http: HttpClient) { }
 
-  getProjects(): Observable<Project[]> {
-    return this.http.get<Project[]>(this.apiUrl);
+  getProjects(userId: number): Observable<Project[]> {
+    return this.http.get<Project[]>(`${this.apiUrl}/${userId}`);
   }
 
-  addProject(projectData: any){
-    return this.http.post(this.apiUrl, projectData, {
+  addProject(userId: number, projectData: any){
+    return this.http.post(`${this.apiUrl}/${userId}`, projectData, {
       headers: { 'Content-Type': 'application/json' }
     });
   } 

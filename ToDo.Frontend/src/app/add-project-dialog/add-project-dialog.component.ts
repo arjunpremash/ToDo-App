@@ -14,11 +14,12 @@ import { DynamicDialogRef } from 'primeng/dynamicdialog';
   imports: [ReactiveFormsModule,
     InputTextModule,
     ButtonModule,
-    DialogModule 
+    DialogModule
   ]
 })
 export class AddProjectDialogComponent {
   addProjectForm: FormGroup;
+  userId: number | null = Number(localStorage.getItem('userId'));
 
   constructor(
     private fb: FormBuilder,
@@ -38,14 +39,16 @@ export class AddProjectDialogComponent {
     const projectData = {
       title: this.addProjectForm.value.title,
     }
-    this.projectService.addProject(projectData).subscribe(
-      res=>{
-        console.log(res);
-      },
-      err=>{
-        console.log(err);
-      }
-    );
+    if (this.userId != null) {
+      this.projectService.addProject(this.userId, projectData).subscribe(
+        res => {
+          console.log(res);
+        },
+        err => {
+          console.log(err);
+        }
+      );
+    }
     this.ref.close();
   }
 }

@@ -28,6 +28,8 @@ import { AddProjectDialogComponent } from '../add-project-dialog/add-project-dia
 
 export class ProjectlistComponent implements OnInit {
   projects: Project[] = [];
+  userId: number | null = Number(localStorage.getItem('userId'));
+
 
   constructor(
     private projectService: ProjectService,
@@ -35,10 +37,13 @@ export class ProjectlistComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.projectService.getProjects().subscribe(
-      (data) => (this.projects = data, console.log(data)),
-      (error) => console.error('Error fetching projects', error)
-    );
+    if (this.userId != null) {
+      this.projectService.getProjects(this.userId).subscribe(
+        (data) => (this.projects = data, console.log(data)),
+        (error) => console.error('Error fetching projects', error)
+      );
+    }
+
   }
 
   openAddProjectDialog() {
