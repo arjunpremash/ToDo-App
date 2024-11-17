@@ -1,4 +1,5 @@
-﻿using ToDo.DataAccess.Contracts;
+﻿using Microsoft.EntityFrameworkCore;
+using ToDo.DataAccess.Contracts;
 using ToDo.EntityFramework;
 using ToDo.EntityFramework.Entity;
 using ToDo.Models;
@@ -14,9 +15,12 @@ namespace ToDo.DataAccess
             _context = context;
         }
 
-        public async Task<IEnumerable<ProjectModel>> GetAllProjectsAsync()
+        public async Task<IEnumerable<ProjectModel>> GetAllProjectsAsync(int userId)
         {
-            var projects = _context.Projects.ToList();
+            var projects = _context.Projects
+                                .Where(p => p.UserId == userId)
+                                .ToList();
+
             List<ProjectModel> result = new List<ProjectModel>();
             foreach (var project in projects)
             {
@@ -31,12 +35,13 @@ namespace ToDo.DataAccess
         }
 
 
-        public async Task AddProjectAsync(string projectTitle)
+        public async Task AddProjectAsync(string projectTitle, int userId)
         {
             _context.Projects.Add(new Project()
             {
                 Title = projectTitle,
                 CreatedDate = DateTime.Now,
+                UserId = userId
             });
             await _context.SaveChangesAsync();
             return;

@@ -17,22 +17,22 @@ namespace ToDo.Backend.Controllers
             _projectService = projectService;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProjectModel>>> GetProjects()
+        [HttpGet("{userId}")]
+        public async Task<ActionResult<IEnumerable<ProjectModel>>> GetProjects(int userId)
         {
-            var projects = await _projectService.GetAllProjectsAsync();
+            var projects = await _projectService.GetAllProjectsAsync(userId);
             return Ok(projects);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateProject([FromBody] ProjectModel project)
+        [HttpPost("{userId}")]
+        public async Task<IActionResult> CreateProject([FromBody] ProjectModel project, int userId)
         {
             if (string.IsNullOrWhiteSpace(project.Title))
             {
                 return BadRequest("Project title cannot be empty.");
             }
 
-            await _projectService.CreateProjectAsync(project.Title);
+            await _projectService.CreateProjectAsync(project.Title, userId);
             return StatusCode(201);
         }
 
