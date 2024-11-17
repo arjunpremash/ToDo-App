@@ -1,0 +1,11 @@
+<form [formGroup]="addTaskForm" (ngSubmit)="addTask()">
+    <div class="p-field">
+        <label for="title">Task Description</label>
+        <input id="title" type="text" pInputText formControlName="description" />
+    </div>
+
+    <div class="p-dialog-footer">
+        <button pButton type="button" label="Cancel" class="p-button-text" (click)="onCancel()"></button>
+        <button pButton type="submit" label="Add Project" [disabled]="addTaskForm.invalid"></button>
+    </div>
+</form>

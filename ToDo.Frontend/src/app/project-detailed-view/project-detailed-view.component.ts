@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { TaskService } from '../Services/task.service';
@@ -7,6 +7,8 @@ import { ProjectService } from '../Services/project.service';
 import { MessagesModule } from 'primeng/messages';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
+import { DialogService } from 'primeng/dynamicdialog';
+import { AddTaskDialogComponent } from '../add-task-dialog/add-task-dialog.component';
 
 @Component({
   selector: 'app-project-detailed-view',
@@ -19,6 +21,7 @@ import { ButtonModule } from 'primeng/button';
     ToolbarModule,
     ButtonModule
   ],
+  providers: [DialogService],
   templateUrl: './project-detailed-view.component.html',
   styleUrl: './project-detailed-view.component.css'
 })
@@ -33,6 +36,7 @@ export class ProjectDetailedViewComponent implements OnInit{
     private route: ActivatedRoute,
     private projectService: ProjectService,
     private taskService: TaskService,
+    private dialogService: DialogService
   ){}
 
   ngOnInit(): void {
@@ -72,5 +76,17 @@ export class ProjectDetailedViewComponent implements OnInit{
   goBack(): void {
     this.router.navigate(['/home']);
   }
+
+  openAddTaskDialog() {
+    const ref = this.dialogService.open(AddTaskDialogComponent, {
+      header: "Add New Task",
+      width: '300px',
+      //closable: false,
+    })
+
+    ref.onClose.subscribe(res => {
+      window.location.reload();
+    })
+  } 
 
 }

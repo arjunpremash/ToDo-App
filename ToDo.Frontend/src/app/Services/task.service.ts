@@ -12,4 +12,8 @@ export class TaskService {
   getTasks(projectId: any){
     return this.httpClient.get(`${this.baseApiUrl}?projectId=${projectId}`);
   }
+
+  addTask(task: any){
+    return this.httpClient.post(this.baseApiUrl, task);
+  }
 }
