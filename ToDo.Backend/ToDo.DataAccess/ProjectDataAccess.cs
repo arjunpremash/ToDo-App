@@ -15,7 +15,7 @@ namespace ToDo.DataAccess
             _context = context;
         }
 
-        public async Task<IEnumerable<ProjectModel>> GetAllProjectsAsync(int userId)
+        public async Task<IEnumerable<ProjectModel>> GetUserProjectsAsync(int userId)
         {
             var projects = _context.Projects
                                 .Where(p => p.UserId == userId)

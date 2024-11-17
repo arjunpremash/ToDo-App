@@ -18,9 +18,9 @@ namespace ToDo.Backend.Controllers
         }
 
         [HttpGet("{userId}")]
-        public async Task<ActionResult<IEnumerable<ProjectModel>>> GetProjects(int userId)
+        public async Task<ActionResult<IEnumerable<ProjectModel>>> GetUserProjects(int userId)
         {
-            var projects = await _projectService.GetAllProjectsAsync(userId);
+            var projects = await _projectService.GetUserProjectsAsync(userId);
             return Ok(projects);
         }
 

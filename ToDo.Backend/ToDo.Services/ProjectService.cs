@@ -13,9 +13,9 @@ namespace ToDo.Services
             _projectDataAccess = projectDataAccess;
         }
 
-        public async Task<IEnumerable<ProjectModel>> GetAllProjectsAsync(int userId)
+        public async Task<IEnumerable<ProjectModel>> GetUserProjectsAsync(int userId)
         {
-            return await _projectDataAccess.GetAllProjectsAsync(userId);
+            return await _projectDataAccess.GetUserProjectsAsync(userId);
         }
 
         public async Task CreateProjectAsync(string projectTitle, int userId)
