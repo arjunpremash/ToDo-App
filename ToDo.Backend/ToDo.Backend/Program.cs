@@ -23,9 +23,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+builder.Services.AddScoped<ITodoService, TodoService>();
 
 builder.Services.AddScoped<IProjectDataAccess, ProjectDataAccess>();
 builder.Services.AddScoped<IUserDataAccess, UserDataAccess>();
+builder.Services.AddScoped<ITodoDataAccess, TodoDataAccess>();
 
 builder.Services.AddCors(options =>
 {

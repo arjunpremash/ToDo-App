@@ -5,6 +5,7 @@ namespace ToDo.DataAccess.Contracts
     public interface IProjectDataAccess
     {
         Task<IEnumerable<ProjectModel>> GetUserProjectsAsync(int userId);
+        Task<ProjectModel> GetProjectByIdAsync(int projectId);
         Task AddProjectAsync(string projectTitle, int userId);
         Task UpdateProjectAsync(ProjectModel project);
         Task DeleteProjectAsync(int id);

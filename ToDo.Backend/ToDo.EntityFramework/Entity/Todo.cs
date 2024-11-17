@@ -21,7 +21,7 @@ namespace ToDo.EntityFramework.Entity
 
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
 
-        public DateTime? UpdatedDate { get; set; }
+        public DateTime UpdatedDate { get; set; }
 
         [ForeignKey("Project")]
         public int ProjectId { get; set; }

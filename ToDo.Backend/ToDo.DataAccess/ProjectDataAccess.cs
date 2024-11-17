@@ -34,6 +34,22 @@ namespace ToDo.DataAccess
             return result;
         }
 
+        public async Task<ProjectModel> GetProjectByIdAsync(int projectId)
+        {
+            Project project = await _context.Projects.FindAsync(projectId);
+
+            if (project == null)
+            {
+                throw new Exception($"Project was not found.");
+            }
+
+            return new ProjectModel()
+            {
+                ProjectId = project.ProjectId,
+                Title = project.Title,
+                CreatedDate = project.CreatedDate,
+            };
+        }
 
         public async Task AddProjectAsync(string projectTitle, int userId)
         {

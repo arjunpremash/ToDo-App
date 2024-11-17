@@ -11,7 +11,7 @@ namespace ToDo.Models
         public int TodoId { get; set; }
         public int ProjectId { get; set; }
         public string Description { get; set; }
-        public bool Status { get; set; }
+        public bool IsCompleted { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
     }

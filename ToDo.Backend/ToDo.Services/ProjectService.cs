@@ -13,6 +13,11 @@ namespace ToDo.Services
             _projectDataAccess = projectDataAccess;
         }
 
+        public async Task<ProjectModel> GetProjectByIdAsync(int projectId)
+        {
+            return await _projectDataAccess.GetProjectByIdAsync(projectId);
+        }
+
         public async Task<IEnumerable<ProjectModel>> GetUserProjectsAsync(int userId)
         {
             return await _projectDataAccess.GetUserProjectsAsync(userId);
