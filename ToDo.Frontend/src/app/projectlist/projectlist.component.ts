@@ -5,7 +5,6 @@ import { CardModule } from 'primeng/card';
 import { DatePipe } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { ButtonModule } from 'primeng/button';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AddProjectDialogComponent } from '../add-project-dialog/add-project-dialog.component';
@@ -20,7 +19,6 @@ import { AddProjectDialogComponent } from '../add-project-dialog/add-project-dia
   imports: [CardModule,
     DatePipe,
     CommonModule,
-    HttpClientModule,
     ButtonModule
   ],
   providers: [DialogService],

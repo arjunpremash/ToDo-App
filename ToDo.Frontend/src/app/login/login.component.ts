@@ -5,6 +5,7 @@ import { AuthService } from '../Services/auth.service';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { MessagesModule } from 'primeng/messages';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,8 @@ import { MessagesModule } from 'primeng/messages';
     CardModule,
     ReactiveFormsModule,
     ButtonModule,
-    MessagesModule
+    MessagesModule,
+    CommonModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
@@ -29,7 +31,7 @@ export class LoginComponent {
     ){
       this.loginForm = this.fb.group({
         username: ['', [Validators.required]],
-        password: ['', [Validators.required], Validators.minLength(6)]
+        password: ['', [Validators.required, Validators.minLength(6)]]
       });
     }
 
