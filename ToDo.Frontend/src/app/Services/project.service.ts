@@ -15,6 +15,10 @@ export class ProjectService {
     return this.http.get<Project[]>(`${this.apiUrl}/${userId}`);
   }
 
+  getProjectById(projectId: any){
+    return this.http.get<Project>(`${this.apiUrl}?projectId=${projectId}`);
+  }
+
   addProject(userId: number, projectData: any){
     return this.http.post(`${this.apiUrl}/${userId}`, projectData, {
       headers: { 'Content-Type': 'application/json' }
