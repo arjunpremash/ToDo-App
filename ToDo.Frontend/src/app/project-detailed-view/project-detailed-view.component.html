@@ -1,0 +1,51 @@
+<div class="project-detail">
+    <p-toolbar class="top-bar">
+        <div class="p-toolbar-group-left">
+            <p-button icon="pi pi-angle-left" class="back-button" (click)="goBack()" label="Back"></p-button>
+        </div>
+        <div class="p-toolbar-group-center">
+            <h2 class="top-bar-title">Project Details</h2>
+        </div>
+    </p-toolbar>
+    <p-card>
+        <ng-template pTemplate="header">
+            <h2>{{ project?.title }}</h2>
+        </ng-template>
+
+        <div *ngIf="project; else loading">
+            <p><strong>Description:</strong> {{ project.description }}</p>
+            <p><strong>Created Date:</strong> {{ project.createdDate | date: 'dd/MM/yyyy' }}</p>
+            <p>
+                <strong>Summary:</strong>
+                {{ pendingTasks.length }}/{{ completedTasks.length + pendingTasks.length }}
+                tasks completed
+            </p>
+
+            <h3>Pending Tasks</h3>
+            <ul *ngIf="pendingTasks.length > 0; else noPendingTasks">
+                <li *ngFor="let task of project.pendingTasks">
+                    <input type="checkbox" [checked]="task.isCompleted" (change)="toggleTaskStatus(task)" />
+                    {{ task.title }}
+                </li>
+            </ul>
+            <ng-template #noPendingTasks>
+                <p>No pending tasks!</p>
+            </ng-template>
+
+            <h3>Completed Tasks</h3>
+            <ul *ngIf="completedTasks.length > 0; else noCompletedTasks">
+                <li *ngFor="let task of project.completedTasks">
+                    <input type="checkbox" [checked]="task.isCompleted" (change)="toggleTaskStatus(task)" />
+                    {{ task.title }}
+                </li>
+            </ul>
+            <ng-template #noCompletedTasks>
+                <p>No completed tasks yet!</p>
+            </ng-template>
+        </div>
+
+        <ng-template #loading>
+            <p-messages severity="info" text="Loading project details..."></p-messages>
+        </ng-template>
+    </p-card>
+</div>

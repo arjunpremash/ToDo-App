@@ -3,7 +3,7 @@
 </div>
 <div class="project-list">
     <div *ngFor="let project of projects" >
-        <p-card class="project-card">
+        <p-card class="project-card" (click)="viewProjectDetails(project.projectId)">
             <ng-template pTemplate="header">
                 <div class="project-title">{{ project.title }}</div>
             </ng-template>

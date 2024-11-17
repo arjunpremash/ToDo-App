@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AddProjectDialogComponent } from '../add-project-dialog/add-project-dialog.component';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -32,6 +33,7 @@ export class ProjectlistComponent implements OnInit {
 
 
   constructor(
+    private router: Router,
     private projectService: ProjectService,
     private dialogService: DialogService
   ) { }
@@ -72,4 +74,9 @@ export class ProjectlistComponent implements OnInit {
       );
     }
   }
+
+  viewProjectDetails(projectId: number): void {
+    this.router.navigate(['/project', projectId]);
+  }
+
 }

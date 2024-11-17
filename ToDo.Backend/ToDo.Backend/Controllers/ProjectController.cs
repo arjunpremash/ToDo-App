@@ -24,6 +24,13 @@ namespace ToDo.Backend.Controllers
             return Ok(projects);
         }
 
+        [HttpGet]
+        public async Task<ActionResult<ProjectModel>> GetProjectById(int projectId)
+        {
+            var project = await _projectService.GetProjectByIdAsync(projectId);
+            return Ok(project);
+        } 
+
         [HttpPost("{userId}")]
         public async Task<IActionResult> CreateProject([FromBody] ProjectModel project, int userId)
         {

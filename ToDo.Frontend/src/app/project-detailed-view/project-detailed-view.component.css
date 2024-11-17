@@ -1,0 +1,49 @@
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.actions {
+    margin-top: 20px;
+}
+
+.top-bar {
+    background-color: #007ad9;
+    color: rgb(96, 82, 82);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+}
+
+.back-button {
+    height: 20px;
+    background-color: white;
+    color: #0b293f;
+    border: none;
+    font-weight: bold;
+}
+
+.back-button:hover {
+    background-color: #005bb5;
+    color: white;
+}
+
+.top-bar-title {
+    font-size: 1.5rem;
+    margin: 0;
+    text-align: center;
+    flex: 1;
+}
+
+.project-detail-container {
+    padding: 20px;
+}
