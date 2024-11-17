@@ -13,19 +13,18 @@
         </ng-template>
 
         <div *ngIf="project; else loading">
-            <p><strong>Description:</strong> {{ project.description }}</p>
             <p><strong>Created Date:</strong> {{ project.createdDate | date: 'dd/MM/yyyy' }}</p>
             <p>
                 <strong>Summary:</strong>
-                {{ pendingTasks.length }}/{{ completedTasks.length + pendingTasks.length }}
+                {{ completedTasks.length }}/{{ completedTasks.length + pendingTasks.length }}
                 tasks completed
             </p>
 
             <h3>Pending Tasks</h3>
             <ul *ngIf="pendingTasks.length > 0; else noPendingTasks">
-                <li *ngFor="let task of project.pendingTasks">
+                <li *ngFor="let task of pendingTasks">
                     <input type="checkbox" [checked]="task.isCompleted" (change)="toggleTaskStatus(task)" />
-                    {{ task.title }}
+                    {{ task.description }}
                 </li>
             </ul>
             <ng-template #noPendingTasks>
@@ -34,9 +33,9 @@
 
             <h3>Completed Tasks</h3>
             <ul *ngIf="completedTasks.length > 0; else noCompletedTasks">
-                <li *ngFor="let task of project.completedTasks">
+                <li *ngFor="let task of completedTasks">
                     <input type="checkbox" [checked]="task.isCompleted" (change)="toggleTaskStatus(task)" />
-                    {{ task.title }}
+                    {{ task.description }}
                 </li>
             </ul>
             <ng-template #noCompletedTasks>

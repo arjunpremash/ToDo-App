@@ -35,5 +35,12 @@ namespace ToDo.Backend.Controllers
             await _todoService.AddTodoAsync(todo);
             return Ok();
         }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateTodoCompleteStatusAsync(int TodoId)
+        {
+            await _todoService.UpdateTodoStatusAsync(TodoId);
+            return Ok();
+        }
     }
 }

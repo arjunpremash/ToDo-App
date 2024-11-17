@@ -16,4 +16,8 @@ export class TaskService {
   addTask(task: any){
     return this.httpClient.post(this.baseApiUrl, task);
   }
+
+  toggleTaskStatus(taskId: any){
+    return this.httpClient.put(`${this.baseApiUrl}?todoId=${taskId}`,'');
+  }
 }

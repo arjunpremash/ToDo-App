@@ -27,5 +27,10 @@ namespace ToDo.Services
         {
             await _todoDataAccess.AddTodoAsync(todo);
         }
+
+        public async Task UpdateTodoStatusAsync(int TodoId)
+        {
+            await _todoDataAccess.UpdateTodoStatusAsync(TodoId);
+        }
     }
 }

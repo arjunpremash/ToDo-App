@@ -54,6 +54,7 @@ export class ProjectDetailedViewComponent implements OnInit{
         next: res => {
           this.allTasks = res;
           this.updateTaskLists();
+          console.log(res);
         },
         error: err => {
           console.log(err);
@@ -70,7 +71,16 @@ export class ProjectDetailedViewComponent implements OnInit{
   }
 
   toggleTaskStatus(task: any){
-    
+    this.taskService.toggleTaskStatus(task.todoId).subscribe({
+      next: res => {
+        console.log(res);
+        task.isCompleted = !task.isCompleted;
+        this.updateTaskLists();
+      },
+      error: err => {
+        console.log(err);
+      }
+    });
   }
 
   goBack(): void {

@@ -58,5 +58,17 @@ namespace ToDo.DataAccess
             });
             await _context.SaveChangesAsync();
         }
+
+        public async Task UpdateTodoStatusAsync(int TodoId)
+        {
+            var todo = await _context.Todos.FindAsync(TodoId);
+            if (todo == null)
+            {
+                throw new Exception("Task Not Found");
+            }
+            todo.IsCompleted = !todo.IsCompleted;
+            _context.Todos.Update(todo);
+            await _context.SaveChangesAsync();
+        }
     }
 }
