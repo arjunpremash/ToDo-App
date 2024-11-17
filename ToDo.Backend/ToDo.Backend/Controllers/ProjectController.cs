@@ -29,7 +29,7 @@ namespace ToDo.Backend.Controllers
         {
             var project = await _projectService.GetProjectByIdAsync(projectId);
             return Ok(project);
-        } 
+        }
 
         [HttpPost("{userId}")]
         public async Task<IActionResult> CreateProject([FromBody] ProjectModel project, int userId)
@@ -50,12 +50,11 @@ namespace ToDo.Backend.Controllers
             {
                 return BadRequest("Project ID mismatch.");
             }
-
-            //var existingProject = await _projectService.GetProjectByIdAsync(id);
-            //if (existingProject == null)
-            //{
-            //    return NotFound();
-            //}
+            var existingProject = await _projectService.GetProjectByIdAsync(id);
+            if (existingProject == null)
+            {
+                return NotFound();
+            }
 
             await _projectService.UpdateProjectAsync(project);
             return NoContent();

@@ -28,4 +28,8 @@ export class ProjectService {
   deleteProject(projectId: any){
     return this.http.delete(this.apiUrl+`/${projectId}`);
   }
+
+  updateProject(projectData: any){
+    return this.http.put(`${this.apiUrl}/${projectData.projectId}`, projectData)
+  }
 }

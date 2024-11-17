@@ -9,7 +9,33 @@
     </p-toolbar>
     <p-card>
         <ng-template pTemplate="header">
-            <h2>{{ project?.title }}</h2>
+            <div class="project-header">
+            <h2 *ngIf="!isEditingTitle">{{ project?.title }}</h2>
+                <input
+                    *ngIf="isEditingTitle"
+                    type="text"
+                    [(ngModel)]="editedTitle"
+                    class="edit-title-input"
+                />
+                <button pButton
+                    *ngIf="!isEditingTitle"
+                    icon="pi pi-pencil"
+                    class="edit-button"
+                    (click)="startEditingTitle()"
+                ></button>
+                <p-button
+                    *ngIf="isEditingTitle"
+                    icon="pi pi-check"
+                    class="save-button"
+                    (click)="saveTitle()"
+                ></p-button>
+                <p-button
+                    *ngIf="isEditingTitle"
+                    icon="pi pi-times"
+                    class="cancel-button"
+                    (click)="cancelEditingTitle()"
+                ></p-button>
+            </div>
         </ng-template>
 
         <div *ngIf="project; else loading">

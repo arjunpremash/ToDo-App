@@ -63,8 +63,15 @@ namespace ToDo.DataAccess
             return;
         }
 
-        public async Task UpdateProjectAsync(ProjectModel project)
+        public async Task UpdateProjectAsync(ProjectModel projectModel)
         {
+            Project project = _context.Projects.Find(projectModel.ProjectId);
+            if (project == null)
+            {
+                throw new Exception("Project Not Found");
+            }
+            project.Title = projectModel.Title;
+            _context.Projects.Update(project);
             await _context.SaveChangesAsync();
         }
 

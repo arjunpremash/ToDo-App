@@ -9,6 +9,8 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AddTaskDialogComponent } from '../add-task-dialog/add-task-dialog.component';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-project-detailed-view',
@@ -19,7 +21,8 @@ import { AddTaskDialogComponent } from '../add-task-dialog/add-task-dialog.compo
     MessagesModule,
     CommonModule,
     ToolbarModule,
-    ButtonModule
+    ButtonModule,
+    FormsModule
   ],
   providers: [DialogService],
   templateUrl: './project-detailed-view.component.html',
@@ -30,6 +33,8 @@ export class ProjectDetailedViewComponent implements OnInit{
   allTasks: any;
   pendingTasks: any;
   completedTasks: any;
+  isEditingTitle: boolean = false;
+  editedTitle: string = '';
 
   constructor(
     private router: Router,
@@ -45,6 +50,7 @@ export class ProjectDetailedViewComponent implements OnInit{
       this.projectService.getProjectById(projectId).subscribe({
         next: res => {
           this.project = res;
+          this.editedTitle = this.project.title;
         },
         error: err => {
           console.log(err);
@@ -98,5 +104,34 @@ export class ProjectDetailedViewComponent implements OnInit{
       window.location.reload();
     })
   } 
+
+  startEditingTitle() {
+    this.isEditingTitle = true;
+  }
+
+  saveTitle(){
+    if (this.editedTitle.trim() !== this.project.title) {
+      const projectData = {
+        projectId: this.project.projectId,
+        title: this.editedTitle.trim(),
+      }
+      this.projectService.updateProject(projectData).subscribe({
+        next: () => {
+          this.project.title = this.editedTitle;
+          this.isEditingTitle = false;
+        },
+        error: (err) => {
+          console.error(err);
+        },
+      });
+    } else {
+      this.isEditingTitle = false; // No change in title
+    }
+  }
+
+  cancelEditingTitle() {
+    this.isEditingTitle = false;
+    this.editedTitle = this.project.title;
+  }
 
 }
