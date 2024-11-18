@@ -11,6 +11,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { AddTaskDialogComponent } from '../add-task-dialog/add-task-dialog.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-project-detailed-view',
@@ -46,6 +47,11 @@ export class ProjectDetailedViewComponent implements OnInit{
 
   ngOnInit(): void {
     const projectId = this.route.snapshot.paramMap.get('id');
+    this.fetchProjectDetails(projectId);
+    
+  }
+
+  fetchProjectDetails(projectId: any){
     if(projectId){
       this.projectService.getProjectById(projectId).subscribe({
         next: res => {
@@ -132,6 +138,51 @@ export class ProjectDetailedViewComponent implements OnInit{
   cancelEditingTitle() {
     this.isEditingTitle = false;
     this.editedTitle = this.project.title;
+  }
+
+  editTask(task: any) {
+    task.isEditing = true;
+  }
+
+  saveTask(task: any) {
+    this.taskService.updateTask(task).subscribe(updatedTask => {
+      task.isEditing = false;
+      this.fetchProjectDetails(this.project.projectId);
+    });
+  }
+
+  cancelEdit(task: any) {
+    task.isEditing = false;
+    //this.fetchProjectDetails(this.project.projectId); // Re-fetch the project details to cancel edits
+  }
+
+  deleteTask(task: any) {
+    this.taskService.deleteTask(task.todoId).subscribe(() => {
+      this.fetchProjectDetails(this.project.projectId); // Reload project after deletion
+    });
+  }
+
+  generateMarkdown(): string {
+    const title = this.project?.title || 'Untitled';
+    const completedCount = this.completedTasks.length;
+    const totalCount = this.completedTasks.length + this.pendingTasks.length;
+  
+    const pendingTasks = this.pendingTasks
+      .map((task: { description: any; }) => `- [ ] ${task.description}`)
+      .join('\n');
+  
+    const completedTasks = this.completedTasks
+      .map((task: { description: any; }) => `- [x] ${task.description}`)
+      .join('\n');
+  
+    return `# ${title}\n\n## Summary\n${completedCount} / ${totalCount} completed.\n\n## Pending Tasks\n${pendingTasks || 'None'}\n\n## Completed Tasks\n${completedTasks || 'None'}`;
+  }
+
+  exportAsGist() {
+    const markdownContent = this.generateMarkdown();
+    const blob = new Blob([markdownContent], { type: 'text/markdown' });
+    const fileName = `${this.project?.title || 'Project'}.md`;
+    saveAs(blob, fileName);
   }
 
 }

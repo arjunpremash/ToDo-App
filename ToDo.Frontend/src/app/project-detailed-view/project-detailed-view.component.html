@@ -5,6 +5,7 @@
         </div>
         <div class="p-toolbar-group-center">
             <p-button icon="pi pi-plus" class="add-button" (click)="openAddTaskDialog()" label="Add Task"></p-button>
+            <p-button icon="pi pi-file-export" class="export-button" (click)="exportAsGist()" label="Export as Gist"></p-button>
         </div>
     </p-toolbar>
     <p-card>
@@ -50,7 +51,16 @@
             <ul *ngIf="pendingTasks.length > 0; else noPendingTasks">
                 <li *ngFor="let task of pendingTasks">
                     <input type="checkbox" [checked]="task.isCompleted" (change)="toggleTaskStatus(task)" />
-                    {{ task.description }}
+                    <ng-container *ngIf="!task.isEditing">
+                        {{ task.description }}
+                        <p-button icon="pi pi-pencil" class="p-button-text" (click)="editTask(task)"></p-button>
+                        <p-button icon="pi pi-trash" class="p-button-text" (click)="deleteTask(task)"></p-button>
+                    </ng-container>
+                    <ng-container *ngIf="task.isEditing">
+                        <input [(ngModel)]="task.description" />
+                        <p-button icon="pi pi-check" class="p-button-text" (click)="saveTask(task)"></p-button>
+                        <p-button icon="pi pi-times" class="p-button-text" (click)="cancelEdit(task)"></p-button>
+                    </ng-container>
                 </li>
             </ul>
             <ng-template #noPendingTasks>
@@ -61,7 +71,16 @@
             <ul *ngIf="completedTasks.length > 0; else noCompletedTasks">
                 <li *ngFor="let task of completedTasks">
                     <input type="checkbox" [checked]="task.isCompleted" (change)="toggleTaskStatus(task)" />
-                    {{ task.description }}
+                    <ng-container *ngIf="!task.isEditing">
+                        {{ task.description }}
+                        <p-button icon="pi pi-pencil" class="p-button-text" (click)="editTask(task)"></p-button>
+                        <p-button icon="pi pi-trash" class="p-button-text" (click)="deleteTask(task)"></p-button>
+                    </ng-container>
+                    <ng-container *ngIf="task.isEditing">
+                        <input [(ngModel)]="task.description" />
+                        <p-button icon="pi pi-check" class="p-button-text" (click)="saveTask(task)"></p-button>
+                        <p-button icon="pi pi-times" class="p-button-text" (click)="cancelEdit(task)"></p-button>
+                    </ng-container>
                 </li>
             </ul>
             <ng-template #noCompletedTasks>

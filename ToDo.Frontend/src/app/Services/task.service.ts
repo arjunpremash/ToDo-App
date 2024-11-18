@@ -20,4 +20,12 @@ export class TaskService {
   toggleTaskStatus(taskId: any){
     return this.httpClient.put(`${this.baseApiUrl}?todoId=${taskId}`,'');
   }
+
+  updateTask(task: any){
+    return this.httpClient.put(`${this.baseApiUrl}/${task.todoId}`,task)
+  }
+
+  deleteTask(taskId: any){
+    return this.httpClient.delete(`${this.baseApiUrl}/${taskId}`);
+  }
 }
