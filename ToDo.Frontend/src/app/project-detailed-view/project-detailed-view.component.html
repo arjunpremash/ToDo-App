@@ -5,37 +5,21 @@
         </div>
         <div class="p-toolbar-group-center">
             <p-button icon="pi pi-plus" class="add-button" (click)="openAddTaskDialog()" label="Add Task"></p-button>
-            <p-button icon="pi pi-file-export" class="export-button" (click)="exportAsGist()" label="Export as Gist"></p-button>
+            <p-button icon="pi pi-file-export" class="export-button" (click)="openExportDialog()"
+                label="Export as Gist"></p-button>
         </div>
     </p-toolbar>
     <p-card>
         <ng-template pTemplate="header">
             <div class="project-header">
-            <h2 *ngIf="!isEditingTitle">{{ project?.title }}</h2>
-                <input
-                    *ngIf="isEditingTitle"
-                    type="text"
-                    [(ngModel)]="editedTitle"
-                    class="edit-title-input"
-                />
-                <button pButton
-                    *ngIf="!isEditingTitle"
-                    icon="pi pi-pencil"
-                    class="edit-button"
-                    (click)="startEditingTitle()"
-                ></button>
-                <p-button
-                    *ngIf="isEditingTitle"
-                    icon="pi pi-check"
-                    class="save-button"
-                    (click)="saveTitle()"
-                ></p-button>
-                <p-button
-                    *ngIf="isEditingTitle"
-                    icon="pi pi-times"
-                    class="cancel-button"
-                    (click)="cancelEditingTitle()"
-                ></p-button>
+                <h2 *ngIf="!isEditingTitle">{{ project?.title }}</h2>
+                <input *ngIf="isEditingTitle" type="text" [(ngModel)]="editedTitle" class="edit-title-input" />
+                <button pButton *ngIf="!isEditingTitle" icon="pi pi-pencil" class="edit-button"
+                    (click)="startEditingTitle()"></button>
+                <p-button *ngIf="isEditingTitle" icon="pi pi-check" class="save-button"
+                    (click)="saveTitle()"></p-button>
+                <p-button *ngIf="isEditingTitle" icon="pi pi-times" class="cancel-button"
+                    (click)="cancelEditingTitle()"></p-button>
             </div>
         </ng-template>
 
@@ -92,4 +76,32 @@
             <p-messages severity="info" text="Loading project details..."></p-messages>
         </ng-template>
     </p-card>
+    <p-dialog header="Export Options" [(visible)]="exportDialogVisible" [modal]="true" [closable]="false"
+        [responsive]="true">
+        <div>
+            <p>How would you like to save the project summary?</p>
+            <div class="export-options">
+                <p-button label="Save Locally" icon="pi pi-file" (click)="exportAsMarkdown()"></p-button>
+                <p-button label="Export as GitHub Gist" icon="pi pi-github" (click)="showGithubTokenField()"></p-button>
+                <p-button label="Cancel" icon="pi pi-cancel" (click)="closeExportDialog()"></p-button>
+            </div>
+
+            <!-- Input for GitHub Token -->
+            <div *ngIf="showTokenInput" class="token-form">
+                <!-- <p-inputText ngDefaultControl [(ngModel)]="githubToken" placeholder="Enter Personal Access Token"></p-inputText> -->
+                <input placeholder="Test Input" [(ngModel)]="githubToken"/>
+                <p-button label="Submit" (click)="exportToGist()"></p-button>
+            </div>
+        </div>
+    </p-dialog>
+    <p-dialog [(visible)]="displayClipboardDialog" [modal]="true" [responsive]="true" [closable]="false">
+        <ng-template pTemplate="header">
+          <h3>Gist URL</h3>
+        </ng-template>
+        <ng-template pTemplate="content">
+          <p>{{ gistUrl }}</p>
+          <p-button label="Copy to Clipboard" icon="pi pi-copy" (click)="copyToClipboard()"></p-button>
+          <p-button label="Cancel" icon="pi pi-cancel" (click)="closeClipBoardDialog()"></p-button>
+        </ng-template>
+      </p-dialog>
 </div>

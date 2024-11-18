@@ -10,8 +10,11 @@ import { ButtonModule } from 'primeng/button';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AddTaskDialogComponent } from '../add-task-dialog/add-task-dialog.component';
 import { InputTextModule } from 'primeng/inputtext';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { saveAs } from 'file-saver';
+import { GistService } from '../Services/gist.service';
+import { DialogModule } from 'primeng/dialog';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-project-detailed-view',
@@ -23,7 +26,9 @@ import { saveAs } from 'file-saver';
     CommonModule,
     ToolbarModule,
     ButtonModule,
-    FormsModule
+    FormsModule,
+    DialogModule,
+    InputTextModule,
   ],
   providers: [DialogService],
   templateUrl: './project-detailed-view.component.html',
@@ -36,13 +41,20 @@ export class ProjectDetailedViewComponent implements OnInit{
   completedTasks: any;
   isEditingTitle: boolean = false;
   editedTitle: string = '';
+  exportDialogVisible: boolean = false;
+  showTokenInput: boolean = false;
+  githubToken: string = '';
+  gistUrl: string = '';
+  displayClipboardDialog: boolean = false;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private projectService: ProjectService,
     private taskService: TaskService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private gistService: GistService,
+    private clipboard: Clipboard
   ){}
 
   ngOnInit(): void {
@@ -178,11 +190,53 @@ export class ProjectDetailedViewComponent implements OnInit{
     return `# ${title}\n\n## Summary\n${completedCount} / ${totalCount} completed.\n\n## Pending Tasks\n${pendingTasks || 'None'}\n\n## Completed Tasks\n${completedTasks || 'None'}`;
   }
 
-  exportAsGist() {
+  openExportDialog() {
+    this.exportDialogVisible = true;
+  }
+
+  exportAsMarkdown() {
     const markdownContent = this.generateMarkdown();
-    const blob = new Blob([markdownContent], { type: 'text/markdown' });
-    const fileName = `${this.project?.title || 'Project'}.md`;
-    saveAs(blob, fileName);
+    const blob = new Blob([markdownContent], { type: 'text/markdown;charset=utf-8' });
+    saveAs(blob, `${this.project.title}.md`);
+    this.exportDialogVisible = false;
+  }
+
+  showGithubTokenField() {
+    this.showTokenInput = true;
+  }
+
+  exportToGist() {
+    if (!this.githubToken) {
+      alert('Please provide a GitHub token.');
+      return;
+    }
+
+    const markdownContent = this.generateMarkdown();
+    this.gistService.createGist(this.githubToken, this.project.title, markdownContent).then(response => {
+      console.log(response);
+      this.gistUrl = response.html_url;
+      this.exportDialogVisible = false;
+      this.displayClipboardDialog = true;
+    })
+    .catch(error => {
+      console.error('Error creating Gist', error);
+    });;
+  }
+
+  closeExportDialog(){
+    this.exportDialogVisible = false;
+    this.githubToken = '';
+    this.showTokenInput = false;
+
+  }
+
+  copyToClipboard() {
+    this.clipboard.copy(this.gistUrl);
+  }
+
+  closeClipBoardDialog(){
+    this.displayClipboardDialog = false;
+    this.gistUrl = '';
   }
 
 }
