@@ -67,7 +67,32 @@ namespace ToDo.DataAccess
                 throw new Exception("Task Not Found");
             }
             todo.IsCompleted = !todo.IsCompleted;
+            todo.UpdatedDate = DateTime.Now;
             _context.Todos.Update(todo);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateTodoDescriptionAsync(TodoModel todoModel)
+        {
+            var todo = await _context.Todos.FindAsync(todoModel.TodoId);
+            if (todo == null)
+            {
+                throw new Exception("Task Not Found");
+            }
+            todo.Description = todoModel.Description;
+            todo.UpdatedDate = DateTime.Now;
+            _context.Todos.Update(todo);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteTodoAsync(int todoId)
+        {
+            var todo = await _context.Todos.FindAsync(todoId);
+            if (todo == null)
+            {
+                throw new Exception("Task Not Found");
+            }
+            _context.Todos.Remove(todo);
             await _context.SaveChangesAsync();
         }
     }

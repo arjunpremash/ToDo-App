@@ -32,5 +32,15 @@ namespace ToDo.Services
         {
             await _todoDataAccess.UpdateTodoStatusAsync(TodoId);
         }
+
+        public async Task UpdateTodoDescriptionAsync(TodoModel todoModel)
+        {
+            await _todoDataAccess.UpdateTodoDescriptionAsync(todoModel);
+        }
+
+        public async Task DeleteTodoAsync(int todoId)
+        {
+            await _todoDataAccess.DeleteTodoAsync(todoId);
+        }
     }
 }

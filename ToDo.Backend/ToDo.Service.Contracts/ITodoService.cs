@@ -12,5 +12,7 @@ namespace ToDo.Service.Contracts
         Task<IEnumerable<TodoModel>> GetTodosByProjectIdAsync(int projectId);
         Task AddTodoAsync(TodoModel todo);
         Task UpdateTodoStatusAsync(int TodoId);
+        Task UpdateTodoDescriptionAsync(TodoModel todoModel);
+        Task DeleteTodoAsync(int TodoId);
     }
 }

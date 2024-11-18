@@ -42,5 +42,21 @@ namespace ToDo.Backend.Controllers
             await _todoService.UpdateTodoStatusAsync(TodoId);
             return Ok();
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateTodoAsync(int id, [FromBody] TodoModel todo)
+        {
+            if (id != todo.TodoId)
+            {
+                return BadRequest("Task ID mismatch.");
+            }
+            await _todoService.UpdateTodoDescriptionAsync(todo);
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task DeleteAsync(int id) {
+            await _todoService.DeleteTodoAsync(id);
+        }
     }
 }
