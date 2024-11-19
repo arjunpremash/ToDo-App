@@ -77,6 +77,6 @@ Follow the steps below to get this project running locally:
 dotnet run
 ```
   
-##View Application at http://localhost:4200/login
+## View Application at http://localhost:4200/login
   
 
