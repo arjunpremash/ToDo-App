@@ -66,17 +66,17 @@ Follow the steps below to get this project running locally:
 }
   ```
 ### 5. Run the Application
-## 5.1 Frontend (Angular) 
+### 5.1 Frontend (Angular) 
   ```bash
   cd .\ToDo.Frontend
   ng serve
   ```
-## 5.2 Backend (.NET)
+### 5.2 Backend (.NET)
 ```bash
  cd .\ToDo.Frontend
 dotnet run
 ```
   
-
+##View Application at http://localhost:4200/login
   
 
