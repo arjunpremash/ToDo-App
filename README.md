@@ -78,5 +78,9 @@ dotnet run
 ```
   
 ## View Application at http://localhost:4200/login
+
+-------
+### Notes
+   You have to provide your personal github access token(with gist permission) to export project as secret gist on github.
   
 
