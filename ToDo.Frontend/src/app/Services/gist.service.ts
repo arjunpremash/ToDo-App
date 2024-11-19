@@ -12,7 +12,7 @@ export class GistService {
 
   createGist(token: string, fileName: string, content: string): Promise<any> {
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.token}`,
+      Authorization: `Bearer ${token}`,
     });
 
     const body = {
