@@ -9,19 +9,19 @@ import { MessagesModule } from 'primeng/messages';
 import { AuthService } from '../Services/auth.service';
 
 @Component({
-  selector: 'app-signup',
-  standalone: true,
-  imports: [ReactiveFormsModule,
-    CardModule,
-    InputTextModule,
-    ButtonModule,
-    MessagesModule,
-    CommonModule,],
-  templateUrl: './signup.component.html',
-  styleUrl: './signup.component.css'
+    selector: 'app-signup',
+    standalone: true,
+    imports: [ReactiveFormsModule,
+        CardModule,
+        InputTextModule,
+        ButtonModule,
+        MessagesModule,
+        CommonModule,],
+    templateUrl: './signup.component.html',
+    styleUrl: './signup.component.css'
 })
 export class SignupComponent {
-  signupForm: FormGroup;
+    signupForm: FormGroup;
     errorMessage: string = '';
 
     constructor(
@@ -47,7 +47,7 @@ export class SignupComponent {
 
     signUp() {
         if (this.signupForm.valid) {
-            const user = { username : this.signupForm.value.username , password : this.signupForm.value.password };
+            const user = { username: this.signupForm.value.username, password: this.signupForm.value.password };
             this.authService.signup(user).subscribe({
                 next: () => {
                     alert('Signup successful!');
@@ -55,7 +55,12 @@ export class SignupComponent {
                 },
                 error: (err) => {
                     console.log(err);
-                    this.errorMessage = 'Signup failed. Please try again.';
+                    if (err.error == 'Username already exists') {
+                        this.signupForm.get('username')?.setErrors({ exists: true });
+                    }
+                    else{
+                        this.errorMessage = 'Signup failed. Please try again.';
+                    }
                 },
             });
         } else {
