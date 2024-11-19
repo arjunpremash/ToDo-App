@@ -3,9 +3,8 @@
         <form [formGroup]="loginForm" (ngSubmit)="logIn()">
             <div class="p-fluid">
                 <div class="form-group">
-                    <label for="username">Username</label>
-                    <input id="username" pInputText type="text" formControlName="username"
-                        placeholder="Enter your username" />
+                    <label for="username">Username: </label>
+                    <input id="username" pInputText type="text" formControlName="username" />
                     <small *ngIf="loginForm.get('username')?.touched && loginForm.get('username')?.invalid"
                         class="error">
                         Username is required.
@@ -13,15 +12,16 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="password">Password</label>
-                    <input id="password" pInputText type="password" formControlName="password"
-                        placeholder="Enter your password" />
+                    <label for="password">Password: </label>
+                    <input id="password" pInputText type="password" formControlName="password" />
                     <small *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid"
                         class="error">
                         Password must be at least 6 characters long.
                     </small>
                 </div>
-
+                <div *ngIf="errorMessage" class="error-message">
+                    {{ errorMessage }}
+                </div>
                 <p-button label="Login" type="submit" [disabled]="loginForm.invalid" class="login-button"></p-button>
             </div>
         </form>

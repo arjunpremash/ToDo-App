@@ -23,40 +23,44 @@ import { CommonModule } from '@angular/common';
 export class LoginComponent {
   loginForm: FormGroup;
   errorMessage: string = '';
-  
-    constructor(
-      private fb: FormBuilder,
-      private authService: AuthService,
-      private router: Router
-    ){
-      this.loginForm = this.fb.group({
-        username: ['', [Validators.required]],
-        password: ['', [Validators.required, Validators.minLength(6)]]
-      });
-    }
 
-    logIn(){
-      if(this.loginForm?.valid){
-        const user = {
-            username: this.loginForm.value.username,
-            password: this.loginForm.value.password
-        }
-        this.authService.login(user).subscribe({
-          next: (res) => {
-            console.log(res);
-            localStorage.setItem('userId', res.user.userId);
-            localStorage.setItem('username', res.user.username);
-            this.router.navigate(['/home']);
-          },
-          error: (err) => {
-            console.log(err);
-            this.errorMessage = 'Invalid Credentials';
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {
+    this.loginForm = this.fb.group({
+      username: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+    });
+  }
+
+  logIn() {
+    if (this.loginForm?.valid) {
+      const user = {
+        username: this.loginForm.value.username,
+        password: this.loginForm.value.password
+      }
+      this.authService.login(user).subscribe({
+        next: (res) => {
+          console.log(res);
+          localStorage.setItem('userId', res.user.userId);
+          localStorage.setItem('username', res.user.username);
+          this.router.navigate(['/home']);
+        },
+        error: (err) => {
+          console.log(err);
+          if (err.status === 401) {
+            this.errorMessage = 'Invalid username or password.';
+          } else {
+            this.errorMessage = 'Something went wrong. Please try again later.';
           }
-        })
-      }
-      else{
-        console.log("Fill all fields")
-      }
+        }
+      })
     }
-    
+    else {
+      console.log("Fill all fields")
+    }
+  }
+
 }
