@@ -1,3 +1,78 @@
+.project-detail {
+    margin: 2rem auto;
+    max-width: 800px;
+}
+
+
+.top-bar {
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.top-bar .p-toolbar-group-left,
+.top-bar .p-toolbar-group-center {
+    display: flex;
+    align-items: center;
+}
+
+.back-button,
+.add-button,
+.export-button {
+    margin-right: 1rem;
+}
+
+p-card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.project-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.project-header h2 {
+    flex: 1;
+    margin: 0;
+}
+
+.project-header input.edit-title-input {
+    flex: 1;
+    padding: 0.5rem;
+    font-size: 1rem;
+    margin-right: 0.5rem;
+}
+
+.project-header p-button {
+    margin: 0 0.25rem;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+.edit-title-input {
+    font-size: 1.25rem;
+    padding: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.edit-button{
+    background-color: transparent;
+    color: #007bff;
+    border-color: transparent;
+}
+
+.edit-button,
+.save-button {
+    margin-left: 0.5rem;
+}
+
+h3 {
+    margin-top: 1.5rem;
+}
+
 ul {
     list-style-type: none;
     padding: 0;
@@ -6,78 +81,111 @@ ul {
 li {
     display: flex;
     align-items: center;
-    margin-bottom: 5px;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #ddd;
 }
 
-input[type="checkbox"] {
+li:last-child {
+    border-bottom: none;
+}
+
+li input[type="checkbox"] {
+    margin-right: 1rem;
+}
+
+li p-button {
+    margin: 0 0.25rem;
+    padding: 0.25rem 0.5rem;
+}
+
+li p-button.p-button-text {
+    font-size: 0.875rem;
+}
+
+.no-tasks-message {
+    color: #999;
+    font-style: italic;
+}
+
+p-dialog {
+    width: 80%;
+    max-width: 500px;
+}
+
+.export-options p-button {
+    margin: 0.5rem 0;
+}
+
+.token-form {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.token-form input {
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+
+.token-form p-button {
+    align-self: flex-start;
+}
+
+p-dialog .p-dialog-content {
+    text-align: center;
+}
+
+p-dialog p-button {
+    margin-top: 1rem;
+    margin-right: 0.5rem;
+}
+
+button.p-button {
+    font-size: 0.875rem;
+}
+
+.error-message {
+    color: red;
+    font-weight: bold;
+    margin: 1rem 0;
+}
+
+::ng-deep .gist-save-button.p-button {
+    color: #007bff !important;
+    border-color: #007bff !important;
+    background-color: transparent !important;
     margin-right: 10px;
 }
 
-.actions {
-    margin-top: 20px;
+::ng-deep .gist-save-button.p-button:hover {
+    background-color: #007bff !important;
+    color: white !important;
 }
 
-.top-bar {
-    background-color: #3e4d58;
-    color: rgb(96, 82, 82);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    margin-bottom: 20px;
-}
-
-.back-button {
-    height: 20px;
-    background-color: white;
-    color: #0b293f;
-    border: none;
-    font-weight: bold;
-}
-
-.back-button:hover {
-    background-color: #005bb5;
-    color: white;
-}
-
-.top-bar-title {
-    font-size: 1.5rem;
-    margin: 0;
-    text-align: center;
-    flex: 1;
-}
-
-.project-detail-container {
-    padding: 20px;
-}
-
-.project-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.edit-title-input {
-    font-size: 1.2rem;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 50%;
-}
-
-.edit-button .p-button{
+/* Export as GitHub Gist Button */
+::ng-deep .gist-export-button.p-button {
+    color: #28a745 !important;
+    border-color: #28a745 !important;
     background-color: transparent !important;
-}
-.edit-button .p-button-icon{
-    color: red !important;
-    
+    margin-right: 10px;
 }
 
-.edit-button,
-.save-button,
-.cancel-button {
-    font-size: 1rem;
-    padding: 5px 10px;
-    height: auto;
+::ng-deep .gist-export-button.p-button:hover {
+    background-color: #28a745 !important;
+    color: white !important;
 }
 
-.token-form{
-    padding: 10px;
+/* Cancel Button */
+::ng-deep .gist-cancel-button.p-button {
+    color: #f44336 !important;
+    border-color: #f44336 !important;
+    background-color: transparent !important;
+    margin-right: 10px;
+}
+
+::ng-deep .gist-cancel-button.p-button:hover {
+    background-color: #f44336 !important;
+    color: white !important;
 }

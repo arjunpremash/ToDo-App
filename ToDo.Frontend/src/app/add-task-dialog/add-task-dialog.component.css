@@ -1,0 +1,49 @@
+.p-dialog {
+    width: 400px;
+    max-width: 90%;
+}
+
+.p-field {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.p-field label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    color: #333;
+}
+
+.p-field input {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+
+.p-dialog-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #ddd;
+}
+
+.p-dialog-footer .p-button-text {
+    color: #f44336;
+    font-weight: bold;
+}
+
+
+.p-dialog-footer .p-button {
+    background-color: #007bff;
+    border: none;
+}
+
+.p-dialog-footer .p-button:hover {
+    background-color: #0056b3;
+}

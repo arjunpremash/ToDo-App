@@ -37,13 +37,13 @@
                     <input type="checkbox" [checked]="task.isCompleted" (change)="toggleTaskStatus(task)" />
                     <ng-container *ngIf="!task.isEditing">
                         {{ task.description }}
-                        <p-button icon="pi pi-pencil" class="p-button-text" (click)="editTask(task)"></p-button>
-                        <p-button icon="pi pi-trash" class="p-button-text" (click)="deleteTask(task)"></p-button>
+                        <button pButton icon="pi pi-pencil" class="p-button-text" (click)="editTask(task)"></button>
+                        <button pButton icon="pi pi-trash" class="p-button-text" (click)="deleteTask(task)"></button>
                     </ng-container>
                     <ng-container *ngIf="task.isEditing">
                         <input [(ngModel)]="task.description" />
-                        <p-button icon="pi pi-check" class="p-button-text" (click)="saveTask(task)"></p-button>
-                        <p-button icon="pi pi-times" class="p-button-text" (click)="cancelEdit(task)"></p-button>
+                        <button pButton icon="pi pi-check" class="p-button-text" (click)="saveTask(task)"></button>
+                        <button pButton icon="pi pi-times" class="p-button-text" (click)="cancelEdit(task)"></button>
                     </ng-container>
                 </li>
             </ul>
@@ -57,13 +57,13 @@
                     <input type="checkbox" [checked]="task.isCompleted" (change)="toggleTaskStatus(task)" />
                     <ng-container *ngIf="!task.isEditing">
                         {{ task.description }}
-                        <p-button icon="pi pi-pencil" class="p-button-text" (click)="editTask(task)"></p-button>
-                        <p-button icon="pi pi-trash" class="p-button-text" (click)="deleteTask(task)"></p-button>
+                        <button pButton icon="pi pi-pencil" class="p-button-text" (click)="editTask(task)"></button>
+                        <button pButton icon="pi pi-trash" class="p-button-text" (click)="deleteTask(task)"></button>
                     </ng-container>
                     <ng-container *ngIf="task.isEditing">
                         <input [(ngModel)]="task.description" />
-                        <p-button icon="pi pi-check" class="p-button-text" (click)="saveTask(task)"></p-button>
-                        <p-button icon="pi pi-times" class="p-button-text" (click)="cancelEdit(task)"></p-button>
+                        <button pButton icon="pi pi-check" class="p-button-text" (click)="saveTask(task)"></button>
+                        <button pButton icon="pi pi-times" class="p-button-text" (click)="cancelEdit(task)"></button>
                     </ng-container>
                 </li>
             </ul>
@@ -81,27 +81,27 @@
         <div>
             <p>How would you like to save the project summary?</p>
             <div class="export-options">
-                <p-button label="Save Locally" icon="pi pi-file" (click)="exportAsMarkdown()"></p-button>
-                <p-button label="Export as GitHub Gist" icon="pi pi-github" (click)="showGithubTokenField()"></p-button>
-                <p-button label="Cancel" icon="pi pi-cancel" (click)="closeExportDialog()"></p-button>
+                <button pButton label="Save Locally" class="gist-save-button" icon="pi pi-file" (click)="exportAsMarkdown()"></button>
+                <button pButton label="Export as GitHub Gist" class="gist-export-button" icon="pi pi-github" (click)="showGithubTokenField()"></button>
+                <button pButton label="Cancel" class="gist-cancel-button" icon="pi pi-cancel" (click)="closeExportDialog()"></button>
             </div>
 
             <!-- Input for GitHub Token -->
             <div *ngIf="showTokenInput" class="token-form">
                 <!-- <p-inputText ngDefaultControl [(ngModel)]="githubToken" placeholder="Enter Personal Access Token"></p-inputText> -->
-                <input placeholder="Test Input" [(ngModel)]="githubToken"/>
+                <input placeholder="Enter Personal Access Token " [(ngModel)]="githubToken" />
                 <p-button label="Submit" (click)="exportToGist()"></p-button>
             </div>
         </div>
     </p-dialog>
     <p-dialog [(visible)]="displayClipboardDialog" [modal]="true" [responsive]="true" [closable]="false">
         <ng-template pTemplate="header">
-          <h3>Gist URL</h3>
+            <h3>Gist URL</h3>
         </ng-template>
         <ng-template pTemplate="content">
-          <p>{{ gistUrl }}</p>
-          <p-button label="Copy to Clipboard" icon="pi pi-copy" (click)="copyToClipboard()"></p-button>
-          <p-button label="Cancel" icon="pi pi-cancel" (click)="closeClipBoardDialog()"></p-button>
+            <p>{{ gistUrl }}</p>
+            <p-button label="Copy to Clipboard" icon="pi pi-copy" (click)="copyToClipboard()"></p-button>
+            <p-button label="Cancel" icon="pi pi-cancel" (click)="closeClipBoardDialog()"></p-button>
         </ng-template>
-      </p-dialog>
+    </p-dialog>
 </div>

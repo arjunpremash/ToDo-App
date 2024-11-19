@@ -9,6 +9,8 @@ import { ButtonModule } from 'primeng/button';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AddProjectDialogComponent } from '../add-project-dialog/add-project-dialog.component';
 import { Router } from '@angular/router';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 
 @Injectable({
   providedIn: 'root',
@@ -20,9 +22,10 @@ import { Router } from '@angular/router';
   imports: [CardModule,
     DatePipe,
     CommonModule,
-    ButtonModule
+    ButtonModule,
+    ConfirmDialogModule,
   ],
-  providers: [DialogService],
+  providers: [DialogService, ConfirmationService],
   templateUrl: './projectlist.component.html',
   styleUrl: './projectlist.component.css'
 })
@@ -35,7 +38,8 @@ export class ProjectlistComponent implements OnInit {
   constructor(
     private router: Router,
     private projectService: ProjectService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private confirmationService: ConfirmationService
   ) { }
 
   ngOnInit(): void {
@@ -60,19 +64,28 @@ export class ProjectlistComponent implements OnInit {
     })
   }
 
-  deleteProject(projectId: any) {
-    console.log(projectId);
-    if (confirm('Are you sure you want to delete this project?')) {
-      this.projectService.deleteProject(projectId).subscribe(
-        res => {
-          console.log(res);
-          window.location.reload();
-        },
-        err => {
-          console.log(err);
-        }
-      );
-    }
+  deleteProject(projectId: any, event: Event) {
+    event.stopPropagation();
+    
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete this project?',
+      header: 'Confirm Delete',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.projectService.deleteProject(projectId).subscribe(
+          (res) => {
+            console.log(res);
+            window.location.reload(); // Refresh after deletion
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
+      },
+      reject: () => {
+        console.log('Delete canceled');
+      },
+    });
   }
 
   viewProjectDetails(projectId: number): void {

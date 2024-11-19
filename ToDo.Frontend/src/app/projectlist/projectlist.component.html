@@ -1,6 +1,7 @@
 <div class="top-bar">
     <p-button id = "add-project-button" label = "Add Project" icon = "pi pi-plus" (onClick)="openAddProjectDialog()"></p-button>
 </div>
+<p-confirmDialog></p-confirmDialog>
 <div class="project-list">
     <div *ngFor="let project of projects" >
         <p-card class="project-card" (click)="viewProjectDetails(project.projectId)">
@@ -19,7 +20,7 @@
                 pButton
                 class="delete-button"
                 icon="pi pi-trash"
-                (click)="deleteProject(project.projectId)"
+                (click)="deleteProject(project.projectId, $event)"
             ></button>
         </p-card>
     </div>
