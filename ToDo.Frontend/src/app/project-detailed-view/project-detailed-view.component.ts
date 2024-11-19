@@ -221,6 +221,8 @@ export class ProjectDetailedViewComponent implements OnInit{
     .catch(error => {
       console.error('Error creating Gist', error);
     });;
+    this.githubToken = '';
+    this.showTokenInput = false;
   }
 
   closeExportDialog(){
